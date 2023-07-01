@@ -47,7 +47,7 @@ public:
     }
 };
 
-CORRECT CODE: This I what I learned Today. A new and more clear approach.
+CORRECT CODE: O(N) is the time complexity. This I what I learned Today. A new and more clear approach.
 
 class Solution {
 public:
