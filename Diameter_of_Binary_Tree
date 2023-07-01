@@ -1,0 +1,43 @@
+CODE: Here T.C. = O(N^2) In this all test cases are passing Except for this one...
+
+[4,-7,-3,null,null,-9,-3,9,-7,-4,null,6,null,-6,-6,null,null,0,6,5,null,9,null,null,-1,-4,null,null,null,-2]
+This Code is passing 101 successfully.
+
+class Solution {
+public:
+
+    int height(TreeNode*root)
+    {
+        if(root == NULL)return 0;
+        int leftans = height(root->left);
+        int rightans = height(root->right);
+        return 1+max(leftans,rightans);
+    }
+
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(root == NULL)return 0;
+        int leftdia = diameterOfBinaryTree(root->left);
+        int rightdia = diameterOfBinaryTree(root->right);
+        int nodedia = 1 + height(root->left) + height(root->right);
+        return max(nodedia,max(leftdia,rightdia))-1;
+    }
+};
+
+CORRECT CODE: This i what I learned.
+
+class Solution {
+public:
+    int height(int &diameter , TreeNode* root)
+    {
+        if(root == NULL)return 0;
+        int lh = height(diameter , root->left);
+        int rh = height(diameter , root->right);
+        diameter = max(lh+rh,diameter);
+        return 1+ max(lh,rh);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        int diameter = 0 ;
+        height(diameter , root);
+        return diameter;
+    }
+};
