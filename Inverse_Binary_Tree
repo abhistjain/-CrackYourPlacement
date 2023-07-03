@@ -1,0 +1,75 @@
+Question:
+
+Link: https://leetcode.com/problems/invert-binary-tree/description/
+
+Given the root of a binary tree, invert the tree, and return its root.
+
+
+Example 1:
+
+
+Input: root = [4,2,7,1,3,6,9]
+Output: [4,7,2,9,6,3,1]
+Example 2:
+
+
+Input: root = [2,1,3]
+Output: [2,3,1]
+Example 3:
+
+Input: root = []
+Output: []
+
+
+Answer:
+
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root==NULL)return NULL;
+        TreeNode* newNode = new TreeNode();
+        newNode->val = root->val;
+        newNode->left = invertTree(root->right);
+        newNode->right = invertTree(root->left);
+        return newNode;
+    }
+};
+
+Another Approach:
+
+class Solution {
+public:
+    TreeNode* insert(TreeNode* root)
+    {
+        if(root == NULL)return NULL;
+        TreeNode*newNode = new TreeNode();
+        newNode->val = root->val;
+        newNode->left = insert(root->right);
+        newNode->right = insert(root->left);
+        return newNode;
+    }
+    TreeNode* invertTree(TreeNode* root) {
+        if(root == NULL)return root;
+        TreeNode* newroot = NULL;
+        newroot = insert(root);
+        return newroot;
+    }
+};
+
+
+class Solution {
+public:
+    TreeNode* BuildTree(TreeNode * root)
+    {
+        if(root == NULL)return NULL;
+        TreeNode* newnode = new TreeNode(root->val);
+        newnode->right = BuildTree(root->left);
+        newnode->left = BuildTree(root->right);
+        return newnode;
+    }
+    TreeNode* invertTree(TreeNode* root) {
+        TreeNode* newk = NULL;
+        newk = BuildTree(root);
+        return newk;
+    }
+};
