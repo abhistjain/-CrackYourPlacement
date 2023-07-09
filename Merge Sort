@@ -1,0 +1,76 @@
+Question:
+
+Link:
+https://www.codingninjas.com/studio/problems/merge-sort_920442?utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_Arrayproblems&leftPanelTab=1
+
+Answer:
+
+#include<iostream>
+#include<bits/stdc++.h>
+
+void merge(vector<int>&arr , int const left , int const mid , int const right)
+{
+    int const sizeleftarray = mid-left+1;
+    int const sizerightarray = right-mid;
+
+    auto * leftsubarray = new int[sizeleftarray];
+    auto * rightsubarray = new int[sizerightarray];
+
+    for(int i = 0 ; i<sizeleftarray ; i++)
+    {
+        leftsubarray[i] = arr[left+i];
+    }
+
+    for(int j = 0 ; j<sizerightarray ; j++)
+    {
+        rightsubarray[j] = arr[mid+j+1];
+    }
+
+    auto indexl = 0;
+    auto indexr = 0;
+    int indexmerged = left;
+
+    while(indexl<sizeleftarray && indexr<sizerightarray)
+    {
+        if(leftsubarray[indexl]<=rightsubarray[indexr])
+        {
+            arr[indexmerged]=leftsubarray[indexl];
+            indexl++;
+        }
+        else
+        {
+            arr[indexmerged]=rightsubarray[indexr];
+            indexr++;
+        }
+        indexmerged++;
+    }
+
+    while(indexl < sizeleftarray)
+    {
+        arr[indexmerged]=leftsubarray[indexl];
+        indexl++;
+        indexmerged++;
+    }
+    while(indexr < sizerightarray)
+    {
+        arr[indexmerged]=rightsubarray[indexr];
+        indexr++;
+        indexmerged++;
+    }
+    delete [] leftsubarray;
+    delete [] rightsubarray;
+}
+
+void mergesort(vector < int > & arr , int low , int high)
+{
+    if(low>=high)return;
+    int mid =low+ (high - low)/2;
+    mergesort(arr,low,mid);
+    mergesort(arr, mid+1, high);
+    merge(arr,low,mid,high);
+}
+
+void mergeSort(vector < int > & arr, int n) {
+    // Write your code here.
+    mergesort(arr,0,n-1);    
+}
